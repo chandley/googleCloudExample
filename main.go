@@ -12,18 +12,21 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", handle)
+	http.HandleFunc("/answer", answerHandler)
+	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.HandleFunc("/_ah/health", healthCheckHandler)
 	log.Print("Listening on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func handle(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+func answerHandler(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+	fmt.Printf("%v",r.Form)
+	if r.Form.Get("answer") != "4" {
+		fmt.Fprint(w, "Wrong")
 		return
 	}
-	fmt.Fprint(w, "Hello world again!")
+	fmt.Fprint(w, "Right")
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
