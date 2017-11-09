@@ -10,9 +10,9 @@ func init() {
 		fmt.Fprintf(w, "Sorry %s is the wrong answer", r.URL.Path)
 	})
 	http.HandleFunc("/question", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "What is 2 plus 2", r.URL.Path)
+		fmt.Fprintf(w, "What is 2 plus 2")
 	})
 	http.HandleFunc("/4", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "4 is correct", r.URL.Path)
+		fmt.Fprintf(w, "4 is correct")
 	})
 }
